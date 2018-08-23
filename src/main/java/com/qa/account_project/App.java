@@ -1,13 +1,19 @@
 package com.qa.account_project;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
+	
+	
     public static void main( String[] args )
     {
-        System.out.println( "Hello World" );
+    	Service service;
+    	service = new Service();
+    	
+    	Account newAccount = new Account("Tony", "glover");
+    	service.addAccount(newAccount);
+    	
+    	Account existingAccount = service.find(newAccount.getAccountNumber());
+    	System.out.println(existingAccount.toString());
+    	service.removeAccount(existingAccount);
     }
 }
