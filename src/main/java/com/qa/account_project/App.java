@@ -11,7 +11,7 @@ public class App
     	Service service;
     	service = new Service();
     	
-    	Account newAccount = new Account("Tony", "glover");
+    	Account newAccount = new Account("Tony", "Glover");
     	service.addAccount(newAccount);
     	newAccount = new Account("Seb", "Delaney");
     	service.addAccount(newAccount);
