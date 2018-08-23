@@ -1,5 +1,7 @@
 package com.qa.account_project;
 
+import org.json.JSONObject;
+
 public class Account 
 {
 
@@ -19,6 +21,11 @@ public class Account
 	public String toString()
 	{
 		return firstName + " " + lastName + " " + accountNumber;
+	}
+	
+	public JSONObject toJSON()
+	{
+		return new JSONObject(this);	    
 	}
 	
 	public String getFirstName() 

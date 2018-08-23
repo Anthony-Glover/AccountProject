@@ -1,7 +1,10 @@
 package com.qa.account_project;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import org.json.JSONObject;
 
 public class AccountCollection 
 {
@@ -12,6 +15,27 @@ public class AccountCollection
 		accountCollection = new HashMap<Integer, Account>();
 	}
 	
+	public class AccountCollectionIterator implements Iterator
+	{
+		private Iterator iter;
+		
+		public AccountCollectionIterator()
+		{
+			iter = accountCollection.entrySet().iterator();
+		}
+		
+		public boolean hasNext() 
+		{
+			return iter.hasNext();
+		}
+
+		public Account next() 
+		{
+			Map.Entry pair = (Map.Entry)iter.next();
+			return (Account)pair.getValue();			
+		}	
+	}
+
 	public void addAccount(Account newAccount) throws Exception
 	{
 		if (accountExists(newAccount.getAccountNumber()))
@@ -59,5 +83,16 @@ public class AccountCollection
 	public Account find(int accountNumber)
 	{
 		return accountCollection.get(accountNumber);
+	}
+	
+	public JSONObject toJSON()
+	{
+		return new JSONObject(accountCollection);	    
+	}
+
+	
+	public Iterator iterator() 
+	{
+		return new AccountCollectionIterator();
 	}
 }

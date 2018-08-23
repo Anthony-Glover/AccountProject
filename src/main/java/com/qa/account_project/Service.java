@@ -1,8 +1,17 @@
 package com.qa.account_project;
 
+import java.util.Iterator;
+
+import org.json.JSONObject;
+
 public class Service 
 {
 	private AccountCollection accountCollection;
+	
+	public Service()
+	{
+		accountCollection = new AccountCollection();
+	}
 	
 	public void addAccount(Account newAccount)
 	{
@@ -34,5 +43,19 @@ public class Service
 	{
 		return accountCollection.find(accountNumber);
 	}
+	
+	public AccountCollection getAccountCollection() 
+	{
+		return accountCollection;
+	}
 
+	public JSONObject toJSON()
+	{
+		return accountCollection.toJSON();	    
+	}
+
+	public Iterator iterator()
+	{
+		return accountCollection.iterator();
+	}
 }
