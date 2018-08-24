@@ -1,7 +1,5 @@
 package com.qa.account_project;
 
-import java.util.Iterator;
-
 import org.json.JSONObject;
 
 import com.qa.account_project.AccountCollection.AccountCollectionIterator;
@@ -46,6 +44,45 @@ public class Service
 		return accountCollection.find(accountNumber);
 	}
 	
+	public AccountCollection find(int accountNumber, String firstName, String lastName)
+	{
+		AccountCollection resultAccountCollection  = new AccountCollection();
+		
+		if (0 < accountNumber) 
+		{
+			Account account = accountCollection.find(accountNumber);
+			
+			if ((null == firstName || "".equals(firstName) || firstName.equals(account.getFirstName())) && 
+				(null == lastName || "".equals(lastName) || lastName.equals(account.getLastName())) &&
+				null != account)
+			{
+				try 
+				{
+					resultAccountCollection.addAccount(account);
+				} 
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+			}
+			
+			return resultAccountCollection;
+		}
+				
+		if (null != firstName && !"".equals(firstName))
+			resultAccountCollection = accountCollection.findByFirstName(firstName);
+		
+		if (null != lastName && !"".equals(lastName))
+			return resultAccountCollection.findByLastName(lastName);
+			
+		return resultAccountCollection;
+	}
+	
+	public boolean Update(Account account)
+	{
+		return accountCollection.update(account);
+	}
+	
 	public AccountCollection getAccountCollection() 
 	{
 		return accountCollection;
@@ -61,16 +98,13 @@ public class Service
 		return accountCollection.iterator();
 	}
 
+	public int findByLastNameCount(String lastName) 
+	{		
+		return accountCollection.findByLastName(lastName).size();
+	}
+
 	public int findByFirstNameCount(String firstName) 
-	{
-		AccountCollectionIterator iterator = accountCollection.iterator();
-		
-		int count = 0;
-		while (iterator.hasNext()) 
-	    {
-	    	if (firstName.equals(iterator.next().getFirstName()))
-	    		count++;
-	    }		
-		return count;
+	{		
+		return accountCollection.findByFirstName(firstName).size();
 	}
 }

@@ -1,18 +1,22 @@
 package com.qa.account_project;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.qa.account_project.AccountCollection.AccountCollectionIterator;
+
 public class AccountCollection 
 {
-	private Map<Integer, Account> accountCollection;
+	private Map<Integer, Account> accountMap;
 	
 	public AccountCollection()
 	{
-		accountCollection = new HashMap<Integer, Account>();
+		accountMap = new HashMap<Integer, Account>();
 	}
 	
 	public class AccountCollectionIterator implements Iterator
@@ -21,7 +25,7 @@ public class AccountCollection
 		
 		public AccountCollectionIterator()
 		{
-			iter = accountCollection.entrySet().iterator();
+			iter = accountMap.entrySet().iterator();
 		}
 		
 		public boolean hasNext() 
@@ -45,7 +49,7 @@ public class AccountCollection
 		}
 		else
 		{
-			accountCollection.put(newAccount.getAccountNumber(), newAccount);
+			accountMap.put(newAccount.getAccountNumber(), newAccount);
 		}
 	}
 	
@@ -53,7 +57,7 @@ public class AccountCollection
 	{
 		if (accountExists(accountNumber))
 		{
-			accountCollection.remove(accountNumber);
+			accountMap.remove(accountNumber);
 		}
 		else
 		{
@@ -66,7 +70,7 @@ public class AccountCollection
 	{
 		if (accountExists(accountToRemove.getAccountNumber()))
 		{
-			accountCollection.remove(accountToRemove.getAccountNumber());
+			accountMap.remove(accountToRemove.getAccountNumber());
 		}
 		else
 		{
@@ -77,22 +81,88 @@ public class AccountCollection
 	
 	public boolean accountExists(int accountNumber)
 	{
-		return accountCollection.containsKey(accountNumber);
+		return accountMap.containsKey(accountNumber);
 	}
 	
 	public Account find(int accountNumber)
 	{
-		return accountCollection.get(accountNumber);
+		return accountMap.get(accountNumber);
+	}
+	
+	public boolean update(Account account)
+	{
+		if (null == accountMap.replace(account.getAccountNumber(), account))
+			return false;
+		else
+			return true;
 	}
 	
 	public JSONObject toJSON()
 	{
-		return new JSONObject(accountCollection);	    
+		return new JSONObject(accountMap);	    
 	}
 
 	
 	public AccountCollectionIterator iterator() 
 	{
 		return new AccountCollectionIterator();
+	}
+
+	public AccountCollection findByFirstName(String firstName) 
+	{
+		try 
+		{
+			return findBy(Account.class.getMethod("getFirstName"), firstName);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		} 
+		
+		return new AccountCollection();
+	}
+
+	public AccountCollection findByLastName(String lastName) 
+	{
+		try 
+		{
+			return findBy(Account.class.getMethod("getLastName"), lastName);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		} 
+		
+		return new AccountCollection();
+	}
+	
+	public AccountCollection findBy(Method method, String compareString) 
+	{
+		AccountCollection resultAccountCollection  = new AccountCollection();
+		
+		AccountCollectionIterator iterator = iterator();
+		
+		while (iterator.hasNext()) 
+	    {
+			Account account = iterator.next();
+			
+	    	try 
+	    	{
+				if (compareString.equals(method.invoke(account)))
+				{
+					resultAccountCollection.addAccount(account);
+				}
+			} 
+	    	catch (Exception e) 
+	    	{
+				e.printStackTrace();
+			} 
+	    }	
+		return resultAccountCollection;
+	}
+
+	public int size()
+	{
+		return accountMap.size();
 	}
 }
