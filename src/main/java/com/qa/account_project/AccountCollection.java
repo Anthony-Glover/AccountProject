@@ -1,14 +1,10 @@
 package com.qa.account_project;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.json.JSONObject;
-
-import com.qa.account_project.AccountCollection.AccountCollectionIterator;
 
 public class AccountCollection 
 {
@@ -21,7 +17,7 @@ public class AccountCollection
 	
 	public class AccountCollectionIterator implements Iterator
 	{
-		private Iterator iter;
+		private Iterator<Map.Entry<Integer, Account>> iter;
 		
 		public AccountCollectionIterator()
 		{
@@ -35,7 +31,7 @@ public class AccountCollection
 
 		public Account next() 
 		{
-			Map.Entry pair = (Map.Entry)iter.next();
+			Map.Entry<Integer, Account> pair = (Map.Entry<Integer, Account>)iter.next();
 			return (Account)pair.getValue();			
 		}	
 	}

@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.Assert;
-
 public class ServiceTest 
 {
 
@@ -30,7 +28,7 @@ public class ServiceTest
 	@Test
 	public void test() 
 	{
-		Assert.assertEquals(3, service.findByFirstNameCount("Tony"));
+		assertEquals(3, service.findByFirstNameCount("Tony"));
 	}
 
 }

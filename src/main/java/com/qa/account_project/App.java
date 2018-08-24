@@ -1,7 +1,5 @@
 package com.qa.account_project;
 
-import java.util.Iterator;
-
 import com.qa.account_project.AccountCollection.AccountCollectionIterator;
 
 public class App 
