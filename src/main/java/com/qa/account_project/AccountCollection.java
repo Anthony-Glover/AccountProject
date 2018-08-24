@@ -58,7 +58,7 @@ public class AccountCollection
 		else
 		{
 			// TODO: create specialised exception for this exception
-			throw new Exception("Removing nonexisting account Exists");
+			throw new Exception("Attempt to delete non-existing account");
 		}		
 	}
 	
@@ -71,7 +71,7 @@ public class AccountCollection
 		else
 		{
 			// TODO: create specialised exception for this exception
-			throw new Exception("Removing nonexisting account Exists");
+			throw new Exception("Attempt to delete non-existing account");
 		}
 	}
 	
