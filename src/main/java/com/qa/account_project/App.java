@@ -2,6 +2,8 @@ package com.qa.account_project;
 
 import java.util.Iterator;
 
+import com.qa.account_project.AccountCollection.AccountCollectionIterator;
+
 public class App 
 {
 	
@@ -19,10 +21,10 @@ public class App
     	Account existingAccount = service.find(newAccount.getAccountNumber());
     	System.out.println(existingAccount.toString());
     	
-	    Iterator it = service.iterator();
+    	AccountCollectionIterator it = service.iterator();
 	    while (it.hasNext()) 
 	    {
-	    	Account account = (Account)it.next();
+	    	Account account = it.next();
 	        System.out.println(account.toJSON());
 	    }
 	    
