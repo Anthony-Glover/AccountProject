@@ -68,9 +68,7 @@ public class Service
 		int count = 0;
 		while (iterator.hasNext()) 
 	    {
-	    	Account account = iterator.next();
-	    	
-	    	if (firstName.equals(account.getFirstName()))
+	    	if (firstName.equals(iterator.next().getFirstName()))
 	    		count++;
 	    }		
 		return count;
