@@ -13,7 +13,7 @@ public class ServiceTest
 	private static Service service;
 	
 	@Before
-	public static void setUp() throws Exception 
+	public void setUp() throws Exception 
 	{
     	service = new Service();
     	

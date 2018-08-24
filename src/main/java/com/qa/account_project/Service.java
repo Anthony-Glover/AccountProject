@@ -58,4 +58,19 @@ public class Service
 	{
 		return accountCollection.iterator();
 	}
+
+	public int findByFirstNameCount(String firstName) 
+	{
+		Iterator iterator = accountCollection.iterator();
+		
+		int count = 0;
+		while (iterator.hasNext()) 
+	    {
+	    	Account account = (Account)iterator.next();
+	    	
+	    	if (firstName.equals(account.getFirstName()))
+	    		count++;
+	    }		
+		return count;
+	}
 }
