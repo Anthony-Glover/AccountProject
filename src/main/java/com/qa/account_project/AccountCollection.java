@@ -91,7 +91,7 @@ public class AccountCollection
 	}
 
 	
-	public Iterator iterator() 
+	public AccountCollectionIterator iterator() 
 	{
 		return new AccountCollectionIterator();
 	}

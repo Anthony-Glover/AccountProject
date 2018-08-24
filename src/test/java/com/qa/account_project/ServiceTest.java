@@ -30,8 +30,7 @@ public class ServiceTest
 	@Test
 	public void test() 
 	{
-		int count = service.findByFirstNameCount("Tony");
-		Assert.assertEquals(3, count);
+		Assert.assertEquals(3, service.findByFirstNameCount("Tony"));
 	}
 
 }

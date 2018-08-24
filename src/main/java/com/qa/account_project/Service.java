@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import org.json.JSONObject;
 
+import com.qa.account_project.AccountCollection.AccountCollectionIterator;
+
 public class Service 
 {
 	private AccountCollection accountCollection;
@@ -54,19 +56,19 @@ public class Service
 		return accountCollection.toJSON();	    
 	}
 
-	public Iterator iterator()
+	public AccountCollectionIterator iterator()
 	{
 		return accountCollection.iterator();
 	}
 
 	public int findByFirstNameCount(String firstName) 
 	{
-		Iterator iterator = accountCollection.iterator();
+		AccountCollectionIterator iterator = accountCollection.iterator();
 		
 		int count = 0;
 		while (iterator.hasNext()) 
 	    {
-	    	Account account = (Account)iterator.next();
+	    	Account account = iterator.next();
 	    	
 	    	if (firstName.equals(account.getFirstName()))
 	    		count++;
